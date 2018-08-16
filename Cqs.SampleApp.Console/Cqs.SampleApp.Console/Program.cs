@@ -27,6 +27,7 @@ namespace Cqs.SampleApp.Console
             System.Console.ReadLine();
         }
 
+
         private static void WithoutCqs(IAutofacContainer container)
         {
 

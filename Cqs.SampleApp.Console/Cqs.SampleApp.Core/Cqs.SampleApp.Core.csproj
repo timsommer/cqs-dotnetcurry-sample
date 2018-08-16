@@ -30,11 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -47,6 +53,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cqs\CommandDispatcher.cs" />
+    <Compile Include="Cqs\CommandHandler.cs" />
+    <Compile Include="Cqs\Data\Command.cs" />
+    <Compile Include="Cqs\Data\Query.cs" />
+    <Compile Include="Cqs\Data\Request.cs" />
+    <Compile Include="Cqs\Data\Result.cs" />
+    <Compile Include="Cqs\ICommand.cs" />
+    <Compile Include="Cqs\ICommandDispatcher.cs" />
+    <Compile Include="Cqs\ICommandHandler.cs" />
+    <Compile Include="Cqs\IQuery.cs" />
+    <Compile Include="Cqs\IQueryDispatcher.cs" />
+    <Compile Include="Cqs\IQueryHandler.cs" />
+    <Compile Include="Cqs\IRequest.cs" />
+    <Compile Include="Cqs\IResult.cs" />
+    <Compile Include="Cqs\QueryDispatcher.cs" />
+    <Compile Include="Cqs\QueryHandler.cs" />
+    <Compile Include="Cqs\Validation\ICommandValidator.cs" />
+    <Compile Include="Cqs\Validation\ValidationBag.cs" />
+    <Compile Include="Cqs\Validation\ValidationException.cs" />
+    <Compile Include="Cqs\Validation\ValidationMessage.cs" />
+    <Compile Include="Cqs\Validation\ValidationType.cs" />
     <Compile Include="DataAccess\ApplicationContext.cs" />
     <Compile Include="DataAccess\DbBaseModel.cs" />
     <Compile Include="Domain\Book.cs" />
