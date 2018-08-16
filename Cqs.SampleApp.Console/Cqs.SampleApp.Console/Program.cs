@@ -21,7 +21,7 @@ namespace Cqs.SampleApp.Console
         private static void Main(string[] args)
         {
 
-            _Log.Info("Bootsrapping..");
+            _Log.Info("Bootsrapping application..");
 
             var _container = Bootstrapper.Bootstrap();
 
@@ -29,21 +29,24 @@ namespace Cqs.SampleApp.Console
 
             WithCqs(_container);
 
-
             System.Console.ReadLine();
         }
 
         private static void WithCqs(IAutofacContainer container)
         {
+            //var _commandDispatcher = container.Resolve<ICommandDispatcher>();
             var _queryDispatcher = container.Resolve<IQueryDispatcher>();
-            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
 
-            var _reponse = _queryDispatcher.Dispatch<GetAllBooksQuery, GetAllBooksQueryResult>(new GetAllBooksQuery());
+            var _reponse = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+
+            _Log.Info("Retrieving all books the CQS Way..");
 
             foreach (var _book in _reponse.Books)
             {
                 _Log.InfoFormat("Title: {0}, Authors: {1}, Bought: {2}", _book.Title, _book.Author, _book.Bought);
             }
+
+            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
 
             //edit first book
             var _bookToEdit = _reponse.Books.First();
@@ -53,12 +56,6 @@ namespace Cqs.SampleApp.Console
                 Book = _bookToEdit
             });
 
-            _reponse = _queryDispatcher.Dispatch<GetAllBooksQuery, GetAllBooksQueryResult>(new GetAllBooksQuery());
-
-            foreach (var _book in _reponse.Books)
-            {
-                _Log.InfoFormat("Title: {0}, Authors: {1}, Bought: {2}", _book.Title, _book.Author, _book.Bought);
-            }
 
             //add new book
             _commandDispatcher.Dispatch<UpdateBookCommand, UpdateBookCommandResult>(new UpdateBookCommand()
@@ -71,6 +68,14 @@ namespace Cqs.SampleApp.Console
                     DatePublished = new DateTime(2013, 07, 01)
                 }
             });
+
+
+            _reponse = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+
+            foreach (var _book in _reponse.Books)
+            {
+                _Log.InfoFormat("Title: {0}, Authors: {1}, Bought: {2}", _book.Title, _book.Author, _book.Bought);
+            }
         }
 
 
@@ -79,7 +84,7 @@ namespace Cqs.SampleApp.Console
 
             //resolve context
             var _context = container.Resolve<ApplicationDbContext>();
-
+            
             //save some books if there are none in the database
             if (!_context.Books.Any())
             {
@@ -104,7 +109,7 @@ namespace Cqs.SampleApp.Console
                 _Log.Info("Books saved..");
             }
 
-            _Log.Info("Retrieving all books..");
+            _Log.Info("Retrieving all books the NON CQS Way..");
 
             foreach (var _book in _context.Books)
             {

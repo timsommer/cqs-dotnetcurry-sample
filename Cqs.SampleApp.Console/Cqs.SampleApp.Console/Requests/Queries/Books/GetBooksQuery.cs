@@ -4,11 +4,11 @@ using Cqs.SampleApp.Core.Domain;
 
 namespace Cqs.SampleApp.Console.Requests.Queries.Books
 {
-    public class GetAllBooksQuery : Query
+    public class GetBooksQuery : Query
     {
     }
 
-    public class GetAllBooksQueryResult : IResult
+    public class GetBooksQueryResult : IResult
     {
         public IEnumerable<Book> Books { get; set; }
     }

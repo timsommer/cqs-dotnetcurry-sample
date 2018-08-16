@@ -39,6 +39,11 @@ namespace Cqs.SampleApp.Core.Cqs
                 Log.ErrorFormat("Error: {0} \n Stacktrace: {1}", _e.Message, _e.StackTrace);
                 throw;
             }
+            finally
+            {
+                _stopWatch.Stop();
+                Log.DebugFormat("Response for query {0} served (elapsed time: {1} msec)", typeof(TRequest).Name, _stopWatch.ElapsedMilliseconds);
+            }
 
             return _response;
         }

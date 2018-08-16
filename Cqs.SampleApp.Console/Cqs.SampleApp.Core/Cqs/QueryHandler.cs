@@ -43,15 +43,24 @@ namespace Cqs.SampleApp.Core.Cqs
             finally
             {
                 _stopWatch.Stop();
-                Log.DebugFormat("Response served (elapsed time: {0} msec)", _stopWatch.ElapsedMilliseconds);
+                Log.DebugFormat("Response for query {0} served (elapsed time: {1} msec)", typeof(TParameter).Name, _stopWatch.ElapsedMilliseconds);
             }
 
 
             return _queryResult;
         }
 
+        /// <summary>
+        /// The actual Handle method that will be implemented in the sub class
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         protected abstract TResult Handle(TParameter request);
         
+        /// <summary>
+        /// Create an instance of the TResult type
+        /// </summary>
+        /// <returns></returns>
         protected TResult CreateTypedResult()
         {
             return (TResult)Activator.CreateInstance(typeof(TResult));

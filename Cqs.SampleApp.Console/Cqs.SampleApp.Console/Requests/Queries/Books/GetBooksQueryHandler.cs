@@ -4,14 +4,14 @@ using Cqs.SampleApp.Core.DataAccess;
 
 namespace Cqs.SampleApp.Console.Requests.Queries.Books
 {
-    public class GetAllBooksQueryHandler : QueryHandler<GetAllBooksQuery, GetAllBooksQueryResult>
+    public class GetBooksQueryHandler : QueryHandler<GetBooksQuery, GetBooksQueryResult>
     {
-        public GetAllBooksQueryHandler(ApplicationDbContext applicationDbContext) 
+        public GetBooksQueryHandler(ApplicationDbContext applicationDbContext) 
             : base(applicationDbContext)
         {
         }
 
-        protected override GetAllBooksQueryResult Handle(GetAllBooksQuery request)
+        protected override GetBooksQueryResult Handle(GetBooksQuery request)
         {
             var _result = CreateTypedResult();
 

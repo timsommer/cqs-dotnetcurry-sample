@@ -3,7 +3,7 @@
 namespace Cqs.SampleApp.Core.Cqs
 {
     /// <summary>
-    /// Passed around to all allow dispatching a query and to be mocked by unit tests
+    /// Dispatches a query and invokes the corresponding handler
     /// </summary>
     public interface IQueryDispatcher
     {
