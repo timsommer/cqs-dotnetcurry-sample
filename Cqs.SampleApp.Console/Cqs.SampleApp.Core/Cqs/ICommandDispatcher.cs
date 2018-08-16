@@ -1,4 +1,6 @@
 ﻿using System.Windows.Input;
+using Cqs.SampleApp.Core.Cqs.Data;
+using ICommand = Cqs.SampleApp.Core.Cqs.Data.ICommand;
 
 namespace Cqs.SampleApp.Core.Cqs
 {

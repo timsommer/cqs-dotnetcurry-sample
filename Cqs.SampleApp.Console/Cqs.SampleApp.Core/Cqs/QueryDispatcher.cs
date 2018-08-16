@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using Cqs.SampleApp.Core.Cqs.Data;
 using log4net;
 
 namespace Cqs.SampleApp.Core.Cqs

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cqs.SampleApp.Console.Infrastructure;
-using Cqs.SampleApp.Console.IoC;
+using Cqs.SampleApp.Console.Requests.Commands;
+using Cqs.SampleApp.Console.Requests.Queries.Books;
+using Cqs.SampleApp.Core.Cqs;
 using Cqs.SampleApp.Core.DataAccess;
 using Cqs.SampleApp.Core.Domain;
+using Cqs.SampleApp.Core.IoC;
 using log4net;
 
 namespace Cqs.SampleApp.Console
@@ -24,7 +27,50 @@ namespace Cqs.SampleApp.Console
 
             WithoutCqs(_container);
 
+            WithCqs(_container);
+
+
             System.Console.ReadLine();
+        }
+
+        private static void WithCqs(IAutofacContainer container)
+        {
+            var _queryDispatcher = container.Resolve<IQueryDispatcher>();
+            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
+
+            var _reponse = _queryDispatcher.Dispatch<GetAllBooksQuery, GetAllBooksQueryResult>(new GetAllBooksQuery());
+
+            foreach (var _book in _reponse.Books)
+            {
+                _Log.InfoFormat("Title: {0}, Authors: {1}, Bought: {2}", _book.Title, _book.Author, _book.Bought);
+            }
+
+            //edit first book
+            var _bookToEdit = _reponse.Books.First();
+            _bookToEdit.Bought = !_bookToEdit.Bought;
+            _commandDispatcher.Dispatch<UpdateBookCommand, UpdateBookCommandResult>(new UpdateBookCommand()
+            {
+                Book = _bookToEdit
+            });
+
+            _reponse = _queryDispatcher.Dispatch<GetAllBooksQuery, GetAllBooksQueryResult>(new GetAllBooksQuery());
+
+            foreach (var _book in _reponse.Books)
+            {
+                _Log.InfoFormat("Title: {0}, Authors: {1}, Bought: {2}", _book.Title, _book.Author, _book.Bought);
+            }
+
+            //add new book
+            _commandDispatcher.Dispatch<UpdateBookCommand, UpdateBookCommandResult>(new UpdateBookCommand()
+            {
+                Book = new Book()
+                {
+                    Title = "C# in Depth",
+                    Author = "Jon Keet",
+                    Bought = false,
+                    DatePublished = new DateTime(2013, 07, 01)
+                }
+            });
         }
 
 

@@ -32,13 +32,7 @@ namespace Cqs.SampleApp.Core.Cqs
 
                 //handle the query request
                 _queryResult = Handle(query);
-
-                var _response = _queryResult as Result;
-                if (_response == null) return _queryResult;
-
-                //check the validationbag and throw exception if warnings or errors occured
-                _response.ValidationBag.ThrowExceptionIfInvalid();
-
+                
             }
             catch (Exception _exception)
             {

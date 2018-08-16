@@ -8,6 +8,7 @@ namespace Cqs.SampleApp.Core.DataAccess
         public ApplicationDbContext(string connectionString)
             : base(connectionString)
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual IDbSet<Book> Books => Set<Book>();

@@ -1,4 +1,6 @@
-﻿namespace Cqs.SampleApp.Core.Cqs
+﻿using Cqs.SampleApp.Core.Cqs.Data;
+
+namespace Cqs.SampleApp.Core.Cqs
 {
     /// <summary>
     /// Passed around to all allow dispatching a query and to be mocked by unit tests

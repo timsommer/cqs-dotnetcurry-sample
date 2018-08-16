@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cqs.SampleApp.Core.Cqs
+namespace Cqs.SampleApp.Core.Cqs.Data
 {
     public interface IRequest
     {

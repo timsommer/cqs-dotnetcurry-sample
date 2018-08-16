@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Autofac.Core;
 
-namespace Cqs.SampleApp.Console.IoC
+namespace Cqs.SampleApp.Core.IoC
 {
     public interface IAutofacContainer
     {

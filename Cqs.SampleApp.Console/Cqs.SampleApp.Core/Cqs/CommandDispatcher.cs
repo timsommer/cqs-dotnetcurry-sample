@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using Cqs.SampleApp.Core.Cqs.Data;
 
 namespace Cqs.SampleApp.Core.Cqs
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Autofac;
 using log4net;
 
-namespace Cqs.SampleApp.Console.IoC
+namespace Cqs.SampleApp.Core.IoC
 {
     public class AutofacContainer : IAutofacContainer
     {

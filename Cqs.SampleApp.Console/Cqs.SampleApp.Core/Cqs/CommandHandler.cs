@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using Cqs.SampleApp.Core.Cqs.Data;
-using Cqs.SampleApp.Core.Cqs.Validation;
 using Cqs.SampleApp.Core.DataAccess;
 using log4net;
 
@@ -9,16 +8,14 @@ namespace Cqs.SampleApp.Core.Cqs
 {
     public abstract class CommandHandler<TRequest, TResult> : ICommandHandler<TRequest, TResult>
         where TRequest : ICommand
-        where TResult : Result, new()
+        where TResult : IResult, new()
     {
         protected readonly ILog Log;
         protected ApplicationDbContext ApplicationDbContext;
-        private readonly ICommandValidator<TRequest> _CommandValidator;
 
-        protected CommandHandler(ApplicationDbContext dbContext, ICommandValidator<TRequest> commandValidator)
+        protected CommandHandler(ApplicationDbContext context)
         {
-            _CommandValidator = commandValidator;
-            ApplicationDbContext = dbContext;
+            ApplicationDbContext = context;
             Log = LogManager.GetLogger(GetType().FullName);
         }
 
@@ -28,24 +25,14 @@ namespace Cqs.SampleApp.Core.Cqs
             var _stopWatch = new Stopwatch();
             _stopWatch.Start();
             
-            TResult _response = null;
+            TResult _response;
 
             try
             {
-                var _validationbag = new ValidationBag();
-                _CommandValidator.Validate(command, _validationbag);
-                _validationbag.ThrowExceptionIfInvalid();
-
+                //do data validation
                 //do authorization
 
-                _response = DoHandle(command, _validationbag);
-                _response.ValidationBag = _validationbag;
-                _validationbag.ThrowExceptionIfInvalid();
-            }
-            catch (ValidationException _e)
-            {
-                Log.WarnFormat("Validation Warning: {0} \n Stacktrace: {1}", _e.Message, _e.StackTrace);
-                throw;
+                _response = DoHandle(command);
             }
             catch (Exception _e)
             {
@@ -57,7 +44,7 @@ namespace Cqs.SampleApp.Core.Cqs
         }
 
         // Protected methods
-        protected abstract TResult DoHandle(TRequest request, ValidationBag bag);
+        protected abstract TResult DoHandle(TRequest request);
 
         protected TResult CreateTypedResult()
         {

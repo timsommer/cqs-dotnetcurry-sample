@@ -53,30 +53,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Cqs\CommandDispatcher.cs" />
     <Compile Include="Cqs\CommandHandler.cs" />
     <Compile Include="Cqs\Data\Command.cs" />
+    <Compile Include="Cqs\Data\IResult.cs" />
     <Compile Include="Cqs\Data\Query.cs" />
     <Compile Include="Cqs\Data\Request.cs" />
-    <Compile Include="Cqs\Data\Result.cs" />
-    <Compile Include="Cqs\ICommand.cs" />
+    <Compile Include="Cqs\Data\ICommand.cs" />
     <Compile Include="Cqs\ICommandDispatcher.cs" />
     <Compile Include="Cqs\ICommandHandler.cs" />
-    <Compile Include="Cqs\IQuery.cs" />
+    <Compile Include="Cqs\Data\IQuery.cs" />
     <Compile Include="Cqs\IQueryDispatcher.cs" />
     <Compile Include="Cqs\IQueryHandler.cs" />
-    <Compile Include="Cqs\IRequest.cs" />
-    <Compile Include="Cqs\IResult.cs" />
+    <Compile Include="Cqs\Data\IRequest.cs" />
     <Compile Include="Cqs\QueryDispatcher.cs" />
     <Compile Include="Cqs\QueryHandler.cs" />
-    <Compile Include="Cqs\Validation\ICommandValidator.cs" />
-    <Compile Include="Cqs\Validation\ValidationBag.cs" />
-    <Compile Include="Cqs\Validation\ValidationException.cs" />
-    <Compile Include="Cqs\Validation\ValidationMessage.cs" />
-    <Compile Include="Cqs\Validation\ValidationType.cs" />
     <Compile Include="DataAccess\ApplicationContext.cs" />
     <Compile Include="DataAccess\DbBaseModel.cs" />
     <Compile Include="Domain\Book.cs" />
+    <Compile Include="IoC\AutofacContainer.cs" />
+    <Compile Include="IoC\IContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
