@@ -6,6 +6,9 @@ namespace Cqs.SampleApp.Console.Requests.Queries.Books
 {
     public class GetBooksQuery : Query
     {
+        public bool ShowOnlyInPossession { get; set; }
+        
+        //other filters here
     }
 
     public class GetBooksQueryResult : IResult

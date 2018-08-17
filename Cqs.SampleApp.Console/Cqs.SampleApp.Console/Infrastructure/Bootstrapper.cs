@@ -22,6 +22,7 @@ namespace Cqs.SampleApp.Console.Infrastructure
         {
             protected override void Load(ContainerBuilder builder)
             {
+                //register the EF DbContext
                 builder.RegisterType<ApplicationDbContext>()
                        .AsSelf()
                        .WithParameter("connectionString", "BooksContext")
@@ -35,8 +36,11 @@ namespace Cqs.SampleApp.Console.Infrastructure
             {
                 var _assembly = typeof(CqsModule).Assembly;
 
+                //register the QueryDispatcher and CommandDispatcher
                 builder.RegisterType<QueryDispatcher>().As<IQueryDispatcher>();
                 builder.RegisterType<CommandDispatcher>().As<ICommandDispatcher>();
+
+                //Register all QueryHandlers and all CommandHandlers found in this assembly
                 builder.RegisterAssemblyTypes(_assembly).AsClosedTypesOf(typeof(IQueryHandler<,>));
                 builder.RegisterAssemblyTypes(_assembly).AsClosedTypesOf(typeof(ICommandHandler<,>));
             }

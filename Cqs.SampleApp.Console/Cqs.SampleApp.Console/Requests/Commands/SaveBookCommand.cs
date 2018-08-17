@@ -4,12 +4,12 @@ using Cqs.SampleApp.Core.Domain;
 
 namespace Cqs.SampleApp.Console.Requests.Commands
 {
-    public class UpdateBookCommand : Command
+    public class SaveBookCommand : Command
     {
         public Book Book { get; set; }
     }
 
-    public class UpdateBookCommandResult : IResult
+    public class SaveBookCommandResult : IResult
     {
     }
 }

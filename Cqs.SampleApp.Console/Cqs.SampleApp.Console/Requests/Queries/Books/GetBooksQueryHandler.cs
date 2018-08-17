@@ -15,6 +15,13 @@ namespace Cqs.SampleApp.Console.Requests.Queries.Books
         {
             var _result = CreateTypedResult();
 
+            var _bookQuery = ApplicationDbContext.Books.AsQueryable();
+
+            if (request.ShowOnlyInPossession)
+            {
+                _bookQuery = _bookQuery.Where(c => c.InMyPossession);
+            }
+
             _result.Books = ApplicationDbContext.Books.ToList();
 
             return _result;

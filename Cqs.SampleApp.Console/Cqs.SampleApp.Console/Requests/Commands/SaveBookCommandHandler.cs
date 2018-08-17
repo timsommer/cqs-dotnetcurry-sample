@@ -5,13 +5,13 @@ using Cqs.SampleApp.Core.DataAccess;
 
 namespace Cqs.SampleApp.Console.Requests.Commands
 {
-    public class UpdateBookCommandHandler : CommandHandler<UpdateBookCommand, UpdateBookCommandResult>
+    public class UpdateBookCommandHandler : CommandHandler<SaveBookCommand, SaveBookCommandResult>
     {
         public UpdateBookCommandHandler(ApplicationDbContext context) : base(context)
         {
         }
 
-        protected override UpdateBookCommandResult DoHandle(UpdateBookCommand request)
+        protected override SaveBookCommandResult DoHandle(SaveBookCommand request)
         {
             var _response = CreateTypedResult();
 
