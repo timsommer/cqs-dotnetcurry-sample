@@ -5,9 +5,9 @@ using Cqs.SampleApp.Core.DataAccess;
 
 namespace Cqs.SampleApp.Console.Requests.Commands
 {
-    public class UpdateBookCommandHandler : CommandHandler<SaveBookCommand, SaveBookCommandResult>
+    public class SaveBookCommandHandler : CommandHandler<SaveBookCommand, SaveBookCommandResult>
     {
-        public UpdateBookCommandHandler(ApplicationDbContext context) : base(context)
+        public SaveBookCommandHandler(ApplicationDbContext context) : base(context)
         {
         }
 

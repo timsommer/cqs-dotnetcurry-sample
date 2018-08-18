@@ -22,7 +22,7 @@ namespace Cqs.SampleApp.Console.Requests.Queries.Books
                 _bookQuery = _bookQuery.Where(c => c.InMyPossession);
             }
 
-            _result.Books = ApplicationDbContext.Books.ToList();
+            _result.Books = _bookQuery.ToList();
 
             return _result;
         }

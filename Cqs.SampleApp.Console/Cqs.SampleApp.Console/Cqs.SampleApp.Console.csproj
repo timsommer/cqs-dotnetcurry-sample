@@ -58,8 +58,8 @@
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Requests\Commands\UpdateBookCommand.cs" />
-    <Compile Include="Requests\Commands\UpdateBookCommandHandler.cs" />
+    <Compile Include="Requests\Commands\SaveBookCommand.cs" />
+    <Compile Include="Requests\Commands\SaveBookCommandHandler.cs" />
     <Compile Include="Requests\Queries\Books\GetBooksQuery.cs" />
     <Compile Include="Requests\Queries\Books\GetBooksQueryHandler.cs" />
   </ItemGroup>
