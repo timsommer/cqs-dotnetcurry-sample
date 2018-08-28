@@ -13,7 +13,7 @@ namespace Cqs.SampleApp.Console.Requests.Queries.Books
 
         protected override GetBooksQueryResult Handle(GetBooksQuery request)
         {
-            var _result = CreateTypedResult();
+            var _result = new GetBooksQueryResult();
 
             var _bookQuery = ApplicationDbContext.Books.AsQueryable();
 

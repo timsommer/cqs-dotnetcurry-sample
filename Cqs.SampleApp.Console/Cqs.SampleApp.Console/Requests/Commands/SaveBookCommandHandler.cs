@@ -13,7 +13,7 @@ namespace Cqs.SampleApp.Console.Requests.Commands
 
         protected override SaveBookCommandResult DoHandle(SaveBookCommand request)
         {
-            var _response = CreateTypedResult();
+            var _response = new SaveBookCommandResult();
 
             //get the book
             ApplicationDbContext.Books.Attach(request.Book);
@@ -22,7 +22,7 @@ namespace Cqs.SampleApp.Console.Requests.Commands
             ApplicationDbContext.Entry(request.Book).State =
                 request.Book.Id == Constants.NewId ? EntityState.Added : EntityState.Modified;
             
-            //persist changes to the datastor
+            //persist changes to the datastore
             ApplicationDbContext.SaveChanges();
 
             return _response;

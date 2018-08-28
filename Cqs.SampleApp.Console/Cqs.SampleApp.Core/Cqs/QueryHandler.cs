@@ -36,7 +36,7 @@ namespace Cqs.SampleApp.Core.Cqs
             }
             catch (Exception _exception)
             {
-                Log.ErrorFormat("Error in queryHandler. Message: {0} \n Stacktrace: {1}", _exception.Message, _exception.StackTrace);
+                Log.ErrorFormat("Error in {0} queryHandler. Message: {1} \n Stacktrace: {2}", typeof(TParameter).Name, _exception.Message, _exception.StackTrace);
                 //Do more error more logic here
                 throw;
             }
@@ -57,13 +57,5 @@ namespace Cqs.SampleApp.Core.Cqs
         /// <returns></returns>
         protected abstract TResult Handle(TParameter request);
         
-        /// <summary>
-        /// Create an instance of the TResult type
-        /// </summary>
-        /// <returns></returns>
-        protected TResult CreateTypedResult()
-        {
-            return (TResult)Activator.CreateInstance(typeof(TResult));
-        }
     }
 }

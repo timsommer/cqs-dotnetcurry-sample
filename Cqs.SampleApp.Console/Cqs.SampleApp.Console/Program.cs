@@ -25,7 +25,7 @@ namespace Cqs.SampleApp.Console
 
             var _container = Bootstrapper.Bootstrap();
 
-            WithoutCqs(_container);
+            //WithoutCqs(_container);
 
             WithCqs(_container);
 
@@ -43,7 +43,7 @@ namespace Cqs.SampleApp.Console
 
             foreach (var _book in _reponse.Books)
             {
-                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Author, _book.InMyPossession);
+                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }
 
             var _commandDispatcher = container.Resolve<ICommandDispatcher>();
@@ -63,7 +63,7 @@ namespace Cqs.SampleApp.Console
                 Book = new Book()
                 {
                     Title = "C# in Depth",
-                    Author = "Jon Keet",
+                    Authors = "Jon Skeet",
                     InMyPossession = false,
                     DatePublished = new DateTime(2013, 07, 01)
                 }
@@ -74,7 +74,7 @@ namespace Cqs.SampleApp.Console
 
             foreach (var _book in _reponse.Books)
             {
-                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Author, _book.InMyPossession);
+                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Cqs.SampleApp.Console
             {
                 _context.Books.Add(new Book()
                 {
-                    Author = "Andrew Hunt, David Thomas",
+                    Authors = "Andrew Hunt, David Thomas",
                     Title = "The Pragmatic Programmer",
                     InMyPossession = true,
                     DatePublished = new DateTime(1999, 10, 20),
@@ -98,7 +98,7 @@ namespace Cqs.SampleApp.Console
 
                 _context.Books.Add(new Book()
                 {
-                    Author = "Robert C. Martin",
+                    Authors = "Robert C. Martin",
                     Title = "The Clean Coder: A Code of Conduct for Professional Programmers",
                     InMyPossession = false,
                     DatePublished = new DateTime(2011, 05, 13),
@@ -113,7 +113,7 @@ namespace Cqs.SampleApp.Console
 
             foreach (var _book in _context.Books)
             {
-                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Author, _book.InMyPossession);
+                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }
         }
     }

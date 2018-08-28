@@ -34,9 +34,10 @@ namespace Cqs.SampleApp.Core.Cqs
 
                 _response = DoHandle(command);
             }
-            catch (Exception _e)
+            catch (Exception _exception)
             {
-                Log.ErrorFormat("Error: {0} \n Stacktrace: {1}", _e.Message, _e.StackTrace);
+                Log.ErrorFormat("Error in {0} CommandHandler. Message: {1} \n Stacktrace: {2}", typeof(TRequest).Name, _exception.Message, _exception.StackTrace);
+
                 throw;
             }
             finally
@@ -50,10 +51,5 @@ namespace Cqs.SampleApp.Core.Cqs
 
         // Protected methods
         protected abstract TResult DoHandle(TRequest request);
-
-        protected TResult CreateTypedResult()
-        {
-            return (TResult)Activator.CreateInstance(typeof(TResult));
-        }
     }
 }
