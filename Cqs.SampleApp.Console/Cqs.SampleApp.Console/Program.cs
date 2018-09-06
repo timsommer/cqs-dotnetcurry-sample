@@ -37,11 +37,11 @@ namespace Cqs.SampleApp.Console
             //var _commandDispatcher = container.Resolve<ICommandDispatcher>();
             var _queryDispatcher = container.Resolve<IQueryDispatcher>();
 
-            var _reponse = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+            var _response = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
 
             _Log.Info("Retrieving all books the CQS Way..");
 
-            foreach (var _book in _reponse.Books)
+            foreach (var _book in _response.Books)
             {
                 _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }
@@ -49,7 +49,7 @@ namespace Cqs.SampleApp.Console
             var _commandDispatcher = container.Resolve<ICommandDispatcher>();
 
             //edit first book
-            var _bookToEdit = _reponse.Books.First();
+            var _bookToEdit = _response.Books.First();
             _bookToEdit.InMyPossession = !_bookToEdit.InMyPossession;
             _commandDispatcher.Dispatch<SaveBookCommand, SaveBookCommandResult>(new SaveBookCommand()
             {
@@ -70,9 +70,9 @@ namespace Cqs.SampleApp.Console
             });
 
 
-            _reponse = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+            _response = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
 
-            foreach (var _book in _reponse.Books)
+            foreach (var _book in _response.Books)
             {
                 _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }

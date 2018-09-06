@@ -15,7 +15,7 @@ namespace Cqs.SampleApp.Console.Requests.Commands
         {
             var _response = new SaveBookCommandResult();
 
-            //get the book
+            //attach the book
             ApplicationDbContext.Books.Attach(request.Book);
 
             //add or update the book entity
