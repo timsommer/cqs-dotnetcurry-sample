@@ -25,16 +25,18 @@ namespace Cqs.SampleApp.Console
 
             var _container = Bootstrapper.Bootstrap();
 
-            //WithoutCqs(_container);
+            // WithoutCqs(_container);
 
-            WithCqs(_container);
+            // WithCqs(_container);
+
+            WithCqsAsync(_container);
 
             System.Console.ReadLine();
         }
 
         private static void WithCqs(IAutofacContainer container)
         {
-            //var _commandDispatcher = container.Resolve<ICommandDispatcher>();
+            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
             var _queryDispatcher = container.Resolve<IQueryDispatcher>();
 
             var _response = _queryDispatcher.Dispatch<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
@@ -45,9 +47,7 @@ namespace Cqs.SampleApp.Console
             {
                 _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
             }
-
-            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
-
+            
             //edit first book
             var _bookToEdit = _response.Books.First();
             _bookToEdit.InMyPossession = !_bookToEdit.InMyPossession;
@@ -78,6 +78,50 @@ namespace Cqs.SampleApp.Console
             }
         }
 
+        private static async void WithCqsAsync(IAutofacContainer container)
+        {
+            var _commandDispatcher = container.Resolve<ICommandDispatcher>();
+            var _queryDispatcher = container.Resolve<IQueryDispatcher>();
+
+            var _response = await _queryDispatcher.DispatchAsync<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+
+            _Log.Info("Retrieving all books the CQS Way..");
+
+            foreach (var _book in _response.Books)
+            {
+                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
+            }
+
+            //edit first book
+            var _bookToEdit = _response.Books.First();
+            _bookToEdit.InMyPossession = !_bookToEdit.InMyPossession;
+            await _commandDispatcher.DispatchAsync<SaveBookCommand, SaveBookCommandResult>(new SaveBookCommand()
+            {
+                Book = _bookToEdit
+            });
+
+
+            //add new book
+            await _commandDispatcher.DispatchAsync<SaveBookCommand, SaveBookCommandResult>(new SaveBookCommand()
+            {
+                Book = new Book()
+                {
+                    Title = "C# in Depth",
+                    Authors = "Jon Skeet",
+                    InMyPossession = false,
+                    DatePublished = new DateTime(2013, 07, 01)
+                }
+            });
+
+
+            _response = await _queryDispatcher.DispatchAsync<GetBooksQuery, GetBooksQueryResult>(new GetBooksQuery());
+
+            foreach (var _book in _response.Books)
+            {
+                _Log.InfoFormat("Title: {0}, Authors: {1}, InMyPossession: {2}", _book.Title, _book.Authors, _book.InMyPossession);
+            }
+
+        }
 
         private static void WithoutCqs(IAutofacContainer container)
         {

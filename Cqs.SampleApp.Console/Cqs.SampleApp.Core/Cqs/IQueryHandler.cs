@@ -1,4 +1,5 @@
-﻿using Cqs.SampleApp.Core.Cqs.Data;
+﻿using System.Threading.Tasks;
+using Cqs.SampleApp.Core.Cqs.Data;
 
 namespace Cqs.SampleApp.Core.Cqs
 {
@@ -7,7 +8,7 @@ namespace Cqs.SampleApp.Core.Cqs
     /// </summary>
     /// <typeparam name="TParameter">Request type</typeparam>
     /// <typeparam name="TResult">Request Result type</typeparam>
-    public interface IQueryHandler<in TParameter, out TResult> where TResult : IResult where TParameter : IQuery
+    public interface IQueryHandler<in TParameter, TResult> where TResult : IResult where TParameter : IQuery
     {
         /// <summary>
         /// Retrieve a query result from a query
@@ -15,5 +16,12 @@ namespace Cqs.SampleApp.Core.Cqs
         /// <param name="query">Request</param>
         /// <returns>Retrieve Request Result</returns>
         TResult Retrieve(TParameter query);
+
+        /// <summary>
+        /// Retrieve a query result async from a query
+        /// </summary>
+        /// <param name="query">Request</param>
+        /// <returns>Retrieve Request Result</returns>
+        Task<TResult> RetrieveAsync(TParameter query);
     }
 }

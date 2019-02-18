@@ -1,4 +1,5 @@
-﻿using Cqs.SampleApp.Core.Cqs.Data;
+﻿using System.Threading.Tasks;
+using Cqs.SampleApp.Core.Cqs.Data;
 
 namespace Cqs.SampleApp.Core.Cqs
 {
@@ -7,7 +8,7 @@ namespace Cqs.SampleApp.Core.Cqs
     /// </summary>
     /// <typeparam name="TParameter"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    public interface ICommandHandler<in TParameter, out TResult> where TParameter : ICommand
+    public interface ICommandHandler<in TParameter, TResult> where TParameter : ICommand
         where TResult : IResult
     {
         /// <summary>
@@ -15,5 +16,11 @@ namespace Cqs.SampleApp.Core.Cqs
         /// </summary>
         /// <param name="command">The command to be used</param>
         TResult Handle(TParameter command);
+
+        /// <summary>
+        /// Executes an async command handler
+        /// </summary>
+        /// <param name="command">The command to be used</param>
+        Task<TResult> HandleAsync(TParameter command);
     }
 }

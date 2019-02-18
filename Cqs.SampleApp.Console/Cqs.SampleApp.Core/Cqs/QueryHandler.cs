@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Cqs.SampleApp.Core.Cqs.Data;
 using Cqs.SampleApp.Core.DataAccess;
 using log4net;
@@ -50,12 +51,50 @@ namespace Cqs.SampleApp.Core.Cqs
             return _queryResult;
         }
 
+        public async Task<TResult> RetrieveAsync(TParameter query)
+        {
+            var _stopWatch = new Stopwatch();
+            _stopWatch.Start();
+
+            Task<TResult> _queryResult;
+
+            try
+            {
+                //do authorization and validatiopn
+
+                //handle the query request
+                _queryResult = HandleAsync(query);
+
+            }
+            catch (Exception _exception)
+            {
+                Log.ErrorFormat("Error in {0} queryHandler. Message: {1} \n Stacktrace: {2}", typeof(TParameter).Name, _exception.Message, _exception.StackTrace);
+                //Do more error more logic here
+                throw;
+            }
+            finally
+            {
+                _stopWatch.Stop();
+                Log.DebugFormat("Response for query {0} served (elapsed time: {1} msec)", typeof(TParameter).Name, _stopWatch.ElapsedMilliseconds);
+            }
+
+
+            return await _queryResult;
+        }
+
         /// <summary>
         /// The actual Handle method that will be implemented in the sub class
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         protected abstract TResult Handle(TParameter request);
-        
+
+        /// <summary>
+        /// The actual async Handle method that will be implemented in the sub class
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        protected abstract Task<TResult> HandleAsync(TParameter request);
+
     }
 }
